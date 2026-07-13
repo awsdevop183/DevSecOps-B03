@@ -1,0 +1,121 @@
+
+
+    "Vpcs": [
+        {
+            "OwnerId": "148761669562",
+            "InstanceTenancy": "default",
+            "CidrBlockAssociationSet": [
+                {
+                    "AssociationId": "vpc-cidr-assoc-0de119dc02e2c3fb0",
+                    "CidrBlock": "192.168.0.0/16",
+                    "CidrBlockState": {
+                        "State": "associated"
+                    }
+                }
+            ],
+            "IsDefault": false,
+            "Tags": [
+                {
+                    "Key": "Name",
+                    "Value": "DevSecOps-B03-vpc"
+                }
+            ],
+            "BlockPublicAccessStates": {
+                "InternetGatewayBlockMode": "off"
+            },
+            "VpcId": "vpc-0902959715c4bfb10",
+            "State": "available",
+            "CidrBlock": "192.168.0.0/16",
+            "DhcpOptionsId": "dopt-070f58d30c181c186"
+        },
+        {
+            "OwnerId": "148761669562",
+            "InstanceTenancy": "default",
+            "CidrBlockAssociationSet": [
+                {
+                    "AssociationId": "vpc-cidr-assoc-05dbca03fff4e8d9f",
+                    "CidrBlock": "10.0.0.0/16",
+                    "CidrBlockState": {
+                        "State": "associated"
+                    }
+                }
+            ],
+            "IsDefault": false,
+            "Tags": [
+                {
+                    "Key": "Environment",
+                    "Value": "dev"
+                },
+                {
+                    "Key": "Name",
+                    "Value": "myproject-vpc"
+                },
+                {
+                    "Key": "ManagedBy",
+                    "Value": "terraform"
+                }
+            ],
+            "BlockPublicAccessStates": {
+                "InternetGatewayBlockMode": "off"
+            },
+            "VpcId": "vpc-00b9cb5fe4cb1c7f8",
+            "State": "available",
+            "CidrBlock": "10.0.0.0/16",
+            "DhcpOptionsId": "dopt-070f58d30c181c186"
+        },
+        {
+            "OwnerId": "148761669562",
+            "InstanceTenancy": "default",
+            "CidrBlockAssociationSet": [
+                {
+                    "AssociationId": "vpc-cidr-assoc-05b5d1ce74f74e627",
+                    "CidrBlock": "192.168.0.0/16",
+                    "CidrBlockState": {
+                        "State": "associated"
+                    }
+                }
+            ],
+            "IsDefault": false,
+            "Tags": [
+                {
+                    "Key": "Name",
+                    "Value": "AWSB10"
+                }
+            ],
+            "BlockPublicAccessStates": {
+                "InternetGatewayBlockMode": "off"
+            },
+            "VpcId": "vpc-0da903f45fc8b746e",
+            "State": "available",
+            "CidrBlock": "192.168.0.0/16",
+            "DhcpOptionsId": "dopt-070f58d30c181c186"
+        },
+        {
+            "OwnerId": "148761669562",
+            "InstanceTenancy": "default",
+            "CidrBlockAssociationSet": [
+                {
+                    "AssociationId": "vpc-cidr-assoc-024a4a544e94dfe2d",
+                    "CidrBlock": "192.168.0.0/16",
+                    "CidrBlockState": {
+                        "State": "associated"
+                    }
+                }
+            ],
+            "IsDefault": false,
+            "Tags": [
+                {
+                    "Key": "Name",
+                    "Value": "admin"
+                }
+            ],
+            "BlockPublicAccessStates": {
+                "InternetGatewayBlockMode": "off"
+            },
+            "VpcId": "vpc-04a5336f1bc926ac6",
+            "State": "available",
+            "CidrBlock": "192.168.0.0/16",
+            "DhcpOptionsId": "dopt-070f58d30c181c186"
+        }
+    ]
+}
