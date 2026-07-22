@@ -1,4 +1,0 @@
-secrets.txt
-.env
-.terraform*
-terraform.tfstate*
