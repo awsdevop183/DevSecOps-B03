@@ -19,6 +19,7 @@ defaults:
 jobs:
   terraform:
     runs-on: ubuntu-latest
+    # Self hosted Runners
     steps:
       - name: Clone the repository
         uses: actions/checkout@v7
@@ -41,3 +42,6 @@ jobs:
 
       - name: Terraform apply
         run: terraform apply -auto-approve
+
+      - name: "Check runner's IP"
+        run: curl ifconfig.me
