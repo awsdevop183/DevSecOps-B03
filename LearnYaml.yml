@@ -1,0 +1,26 @@
+- name: Amazon Web Services
+  est: 2006
+  # services: ["IaaS", "PaaS", "SaaS"]
+  services:
+    - IaaS
+      - "EC2"
+    - PaaS
+      - 'RDS'
+      - 'Elastic beanstalk'
+    - SaaS
+      - SNS
+  commads: |
+    ls -l
+    pwd
+    terraform version
+
+  comments: >
+    Welcome to Github Actions
+    You can learn Azure too
+
+- name: Amazon Web Services
+  est: 2006
+  # services: ["IaaS", "PaaS", "SaaS"]
+  services:
+    - IaaS
+      - "EC2"
