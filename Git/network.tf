@@ -3,7 +3,7 @@ resource "aws_vpc" "name" {
 
   cidr_block = "192.168.3.0/16"
   tags = {
-    "Name" : "Terraform-git-VPC"
+    "Name" = "Terraform-git-VPC"
   }
 }
 
