@@ -6,12 +6,6 @@ on:
         description: "Approve terraform destroy"
         required: true
         default: "NO"
-  push:
-    branches:
-      - git-actions
-  pull_request:
-    branches:
-      - git-actions
 
 permissions:
   id-token: write
