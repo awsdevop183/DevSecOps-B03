@@ -5,3 +5,12 @@ resource "aws_vpc" "name" {
     "Name" = "Terraform-git-VPC"
   }
 }
+
+
+terraform {
+  backend "s3" {
+    bucket = "bunnyops"
+    key    = "statefile"
+    region = "us-east-1"
+  }
+}
