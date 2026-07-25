@@ -1,12 +1,15 @@
 name: Terraform Destroy
 on:
-  workflow_run:
-    workflow_dispatch:
-      inputs:
-        TerraformDestroy:
-          description: "Approve terraform destroy"
-          required: true
-          default: "NO"
+  workflow_dispatch:
+    inputs:
+      TerraformDestroy:
+        description: "Approve terraform destroy"
+        required: true
+        default: "NO"
+        type: choice
+        options:
+          - No
+          - Yes
 
 permissions:
   id-token: write
