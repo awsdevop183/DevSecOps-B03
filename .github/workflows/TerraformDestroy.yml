@@ -6,10 +6,10 @@ on:
         description: "Approve terraform destroy"
         required: true
         default: "NO"
-        # type: choice
-        # options:
-        #   - No
-        #   - Yes
+        type: choice
+        options:
+          - NO
+          - YES
 
 permissions:
   id-token: write
