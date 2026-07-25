@@ -18,7 +18,7 @@ defaults:
 
 jobs:
   terraform:
-    runs-on: ubuntu-latest
+    runs-on: low-cpu
     # Self hosted Runners
     steps:
       - name: Clone the repository
