@@ -1,0 +1,50 @@
+name: Terraform Destroy
+on:
+  workflow_dispatch:
+    inputs:
+      TerraformDestroy:
+        description: "Approve terraform destroy"
+        required: true
+        default: "NO"
+  push:
+    branches:
+      - git-actions
+  pull_request:
+    branches:
+      - git-actions
+
+permissions:
+  id-token: write
+  contents: read
+
+defaults:
+  run:
+    working-directory: Git
+
+jobs:
+  terraform:
+    runs-on: low-cpu
+    # Self hosted Runners
+    steps:
+      - name: Clone the repository
+        uses: actions/checkout@v7
+
+      - name: AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v6.2.3
+        with:
+          aws-region: us-east-1
+          aws-access-key-id: ${{ secrets.AWS_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v4
+
+      - name: Initialize Terraform
+        run: terraform init
+
+      - name: Terraform Destroy
+        run: terraform destroy -auto-approve
+        if: ${{ github.event.inputs.TerraformDestroy == 'YES' }}
+
+      - name: "Check runner's IP"
+        run: curl ifconfig.me
