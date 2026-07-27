@@ -2,3 +2,5 @@ Git/secrets.txt
 Git/.env
 Git/.terraform*
 Git/terraform.tfstate*
+Terraform/.terraform
+Terraform/terraform.tfstate*
