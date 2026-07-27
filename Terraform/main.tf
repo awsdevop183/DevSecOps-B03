@@ -7,6 +7,12 @@ resource "aws_vpc" "test" {
 }
 
 
+# resource "aws_internet_gateway" "igw" {
+
+#   vpc_id = aws_vpc.test.id
+
+# }
+
 # resource "aws_s3_bucket" "test" {
 #   bucket = "bunnyops-3"
 # }
@@ -21,6 +27,11 @@ resource "local_file" "test" {
 
 }
 
+
+
+# Arguments = Inputs
+
+# Attributes = Resource emitting values
 # resource
 # data
 
