@@ -1,7 +1,7 @@
 resource "aws_vpc" "test" {
-  cidr_block = "192.168.0.0/16"
+  cidr_block = "10.0.0.0/16"
   tags = {
-    Name = "Terraform-vpc"
+    Name = "AWS_VPC"
   }
 
 }
@@ -11,7 +11,9 @@ resource "aws_vpc" "test" {
 #   bucket = "bunnyops-3"
 # }
 
+# Immutable: we cannot modify the resource
 
+# Mutable: we can modify
 
 resource "local_file" "test" {
   filename = "test.txt"
