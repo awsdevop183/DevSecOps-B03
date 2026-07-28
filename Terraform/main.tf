@@ -7,6 +7,54 @@ resource "aws_vpc" "test" {
 }
 
 
+resource "aws_internet_gateway" "igw" {
+
+  vpc_id = aws_vpc.test.id
+
+}
+
+
+resource "aws_subnet" "sub-1" {
+  cidr_block = "10.0.0.0/24"
+  vpc_id     = aws_vpc.test.id
+  tags = {
+    Name = "Sub-1"
+  }
+
+}
+
+resource "aws_subnet" "sub-2" {
+  cidr_block = "10.0.1.0/24"
+  vpc_id     = aws_vpc.test.id
+  tags = {
+    Name = "Sub-2"
+  }
+
+}
+
+
+
+
+
+
+
+resource "local_file" "test" {
+  filename = "test.txt"
+  content  = "Hello test file"
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
 # resource "aws_internet_gateway" "igw" {
 
 #   vpc_id = aws_vpc.test.id
@@ -21,11 +69,9 @@ resource "aws_vpc" "test" {
 
 # Mutable: we can modify
 
-resource "local_file" "test" {
-  filename = "test.txt"
-  content  = "Hello test file"
 
-}
+
+
 
 
 
