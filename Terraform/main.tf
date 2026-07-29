@@ -2,7 +2,7 @@ resource "aws_vpc" "test" {
   cidr_block           = var.vpc-cidr
   enable_dns_hostnames = true
   tags = {
-    Name = var.objects.vpc_tags
+    Name = "Terraform-vpc"
   }
 
 }
@@ -16,34 +16,79 @@ resource "aws_internet_gateway" "igw" {
 }
 
 
-resource "aws_subnet" "sub-1" {
-  # cidr_block = var.cidrs[0]
+# resource "aws_subnet" "sub-1" {
+#   # cidr_block = var.cidrs[0]
 
-  cidr_block = var.subnets["subnet-1"]
+#   cidr_block = var.subnets[0]
+#   vpc_id     = aws_vpc.test.id
+#   tags = {
+#     Name = "Sub-1"
+#   }
+
+# }
+
+
+# resource "aws_subnet" "sub-2" {
+#   cidr_block = var.subnets[1]
+
+#   vpc_id = aws_vpc.test.id
+#   tags = {
+#     Name = "Sub-2"
+#   }
+
+# }
+
+# resource "aws_subnet" "sub-3" {
+#   cidr_block = var.subnets[2]
+
+#   vpc_id = aws_vpc.test.id
+#   tags = {
+#     Name = "Sub-3"
+#   }
+#   lifecycle {
+#     # create_before_destroy = true
+#     # prevent_destroy = true
+#   }
+# }
+
+
+
+# resource "aws_subnet" "subnets" {
+#   vpc_id     = aws_vpc.test.id
+#   count      = length(var.subnets)
+#   cidr_block = var.subnets[count.index]
+#   tags = {
+#     Name = "Terraform-subnet-${count.index + 1}"
+#   }
+
+# }
+
+
+
+
+
+resource "aws_subnet" "subnets" {
   vpc_id     = aws_vpc.test.id
+  for_each   = var.subnets
+  cidr_block = each.value
+
   tags = {
-    Name = "Sub-1"
+    Name = "Terraform-${each.key}"
   }
 
 }
 
 
-resource "aws_subnet" "sub-2" {
-  # cidr_block = var.cidrs[1]
-  # cidr_block = var.tuple-type[1]
-
-  # cidr_block = var.subnets["subnet-2"]
-
-  cidr_block = var.objects.cidrs[1]
 
 
 
-  vpc_id = aws_vpc.test.id
-  tags = {
-    Name = "Sub-2"
-  }
 
-}
+
+
+
+
+
+
 
 
 resource "local_file" "test" {
@@ -55,6 +100,18 @@ resource "local_file" "test" {
 }
 
 
+
+# data "aws_vpc" "application-vpc" {
+#   id = "vpc-04f8c3738c469293f"
+# }
+
+# resource "aws_subnet" "app-sub" {
+
+#   vpc_id     = data.aws_vpc.application-vpc.id
+#   cidr_block = "10.0.180.0/24"
+
+
+# }
 
 
 
