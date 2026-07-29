@@ -18,16 +18,18 @@ variable "tuple-type" {
 
 # }
 
+
+
 variable "subnets" {
   #   type = map()
 
 }
 
-variable "objects" {
+# variable "objects" {
 
-  type = object({
-    vpc_tags = string
-    cidrs    = list(string)
-  })
+#   type = object({
+#     vpc_tags = string
+#     cidrs    = list(string)
+#   })
 
-}
+# }
