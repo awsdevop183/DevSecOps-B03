@@ -1,4 +1,4 @@
-resource "aws_vpc" "test" {
+resource "aws_vpc" "terraform-vpc" {
   cidr_block           = var.vpc-cidr
   enable_dns_hostnames = true
   tags = {
@@ -11,7 +11,7 @@ resource "aws_vpc" "test" {
 
 resource "aws_internet_gateway" "igw" {
 
-  vpc_id = aws_vpc.test.id
+  vpc_id = aws_vpc.terraform-vpc.id
 
 }
 
@@ -68,7 +68,7 @@ resource "aws_internet_gateway" "igw" {
 
 
 resource "aws_subnet" "subnets" {
-  vpc_id     = aws_vpc.test.id
+  vpc_id     = aws_vpc.terraform-vpc.id
   for_each   = var.subnets
   cidr_block = each.value
 
@@ -90,10 +90,9 @@ resource "aws_subnet" "subnets" {
 
 
 
-
 resource "local_file" "test" {
   filename = "vpc_id.txt"
-  content  = "My VPC id is: ${aws_vpc.test.id}..."
+  content  = "My VPC id is: ${aws_vpc.terraform-vpc.id}..."
 
   depends_on = [aws_internet_gateway.igw]
 

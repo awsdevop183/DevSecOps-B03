@@ -1,7 +1,7 @@
 resource "aws_security_group" "terraform-sg" {
   name        = "terraform-sg"
   description = "Testing Terraform"
-  vpc_id      = aws_vpc.test.id
+  vpc_id      = aws_vpc.terraform-vpc.id
 
   tags = {
     Name = "Terraform-SG"
