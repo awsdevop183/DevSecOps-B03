@@ -1,0 +1,19 @@
+
+
+Version contraints ( terraform & provider versions )
+Remote state/Backend
+
+State Locking
+
+
+
+= 2.6.0 same version
+!= 2.6.0 any version other than this
+> 2.6.0 
+>= 2.6.0
+<
+<=
+
+~>  Pessimistic expression
+
+~> 2.6.0, 2.6.100, 2.8.100, 2.9.10, not equal to 3.0.10
