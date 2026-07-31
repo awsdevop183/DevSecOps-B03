@@ -1,5 +1,5 @@
 output "VPC_id" {
 
-  value = aws_vpc.test.id
+  value = aws_vpc.terraform-vpc.id
 
 }

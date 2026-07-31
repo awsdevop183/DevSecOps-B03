@@ -1,7 +1,7 @@
 resource "aws_security_group" "terraform-sg" {
   name        = "terraform-sg"
   description = "Testing Terraform"
-  vpc_id      = aws_vpc.test.id
+  vpc_id      = aws_vpc.terraform-vpc.id
 
   tags = {
     Name = "Terraform-SG"
@@ -28,6 +28,12 @@ resource "aws_security_group" "terraform-sg" {
   ingress {
     from_port   = 22
     to_port     = 22
+    protocol    = "TCP"
+    cidr_blocks = ["49.43.228.119/32"]
+  }
+  ingress {
+    from_port   = 80
+    to_port     = 80
     protocol    = "TCP"
     cidr_blocks = ["49.43.228.119/32"]
   }
