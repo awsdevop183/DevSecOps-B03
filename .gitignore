@@ -4,3 +4,5 @@ Git/.terraform*
 Git/terraform.tfstate*
 Terraform/.terraform
 Terraform/terraform.tfstate*
+terraform-project/terraform.tfstate*
+terraform-project/.terraform*

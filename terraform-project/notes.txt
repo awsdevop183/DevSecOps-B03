@@ -1,0 +1,14 @@
+AWS VPC
+subnet-6 ( 3 public, 3 private)
+route tables
+route table association
+EC2
+Security groups
+
+
+provisoner:
+ - remote-exec
+ - local-exec
+ - file
+
+null_resource
