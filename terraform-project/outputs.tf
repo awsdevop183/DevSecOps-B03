@@ -8,7 +8,7 @@ output "public-subnet-1" {
 
 }
 
-output "ec2-ip" {
-  value = aws_instance.test-vm.public_ip
+# output "ec2-ip" {
+#   value = aws_instance.test-vm.public_ip
 
-}
+# }
