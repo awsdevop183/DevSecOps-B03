@@ -5,3 +5,6 @@ variable "private-subs" {}
 variable "ami" {}
 
 variable "azs" {}
+variable "environment" {
+
+}
