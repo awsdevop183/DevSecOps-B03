@@ -6,3 +6,6 @@ Terraform/.terraform
 Terraform/terraform.tfstate*
 terraform-project/terraform.tfstate*
 terraform-project/.terraform*
+
+Workspaces/.terraform
+Workspaces/terraform.tfstate*

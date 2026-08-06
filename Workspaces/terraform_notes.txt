@@ -1,0 +1,16 @@
+Terraform advantages:
+
+1. Version Control(Git)
+2. Declaration tool ( HCL- Hashicorp Language)
+3. Collaboration
+4. Huge Documenation
+5. Cloud Agnostic ( AWS, GCP, Azure, Kubernetes - Providers)
+6. More orgs using it, More opportunities
+
+
+
+Terraform workflow:
+
+terraform init
+terraform plan
+terraform apply
