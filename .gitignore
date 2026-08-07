@@ -9,3 +9,7 @@ terraform-project/.terraform*
 
 Workspaces/.terraform
 Workspaces/terraform.tfstate*
+
+Ansible-infra/.terraform*
+Ansible-infra/terraform.tfstate*
+Ansible/inventory.ini
