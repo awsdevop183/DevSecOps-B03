@@ -1,0 +1,48 @@
+{
+    "_comment": "AMI Image With Docker & Nginx",
+    "variables": {
+        "region": "",
+        "source_ami": "",
+        "instance_type": "",
+        "vpc_id": "",
+        "subnet_id": ""
+    },
+    "_comment2": "packer build -var-file vars.json packer.json",
+    "builders": [
+        {
+            "type": "amazon-ebs",
+            "region": "{{user `region`}}",
+            "source_ami": "{{user `source_ami`}}",
+            "instance_type": "{{user `instance_type`}}",
+            "ssh_username": "ubuntu",
+            "ami_name": "DevSecOps-B03-{{isotime | clean_resource_name}}",
+            "vpc_id": "{{user `vpc_id`}}",
+            "subnet_id": "{{user `subnet_id`}}",
+            "tags": {
+                "Name": "AWS-B11-{{isotime | clean_resource_name}}"
+            }
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "shell",
+            "inline": [
+                "sudo useradd -m madhu --shell /bin/bash",
+                "sudo mkdir -p /home/madhu/.ssh",
+                "sudo chown -R madhu /home/madhu/",
+                "sudo touch /home/madhu/.ssh/authorized_keys",
+                "sudo usermod -aG sudo madhu",
+                "echo 'madhu ALL=(ALL) NOPASSWD: ALL' | sudo tee -a /etc/sudoers",
+                "echo 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDdK0sAQQ6bAvSyEiQFUNwMGq7O3Yeb5welJuIA6DDTObx3cdq3YiZOUQrUIZg7iFppsUVxv0J0t/BW1APu2lRqsf0jJhnmEOMN8i2MO6NDsMjlITjYiBJ57swEztA0aw5gWKUrIQHNiy9XGN8gT+cbsn9tRlG6njvEWnnuTnqbo5FhBjne2O1tLOmin+a7ba0oyBtj6VFyYT42rKnwbfs5l2vcwv8HQyuqwn72r/+OVSIjXlbAEqomIIVNsDUT8/vz3ggRZKcbpgD+EUndew2X/9I7dKehQ/1onElpbUuv2XzjohpDBrsAOBJH741Nk5eOuvJdhP0L0ihYD1R/9SN8VbOBEx1x81BB2NUS64R4JPmEB4KroE0dMOdTpDBBwz4XLBVdGZ/AS1qUlS+c6QnyAf56v/jeSiNAaHm+9gLGNAg0w/iyFlwFtYa+LVreqLcOtkYccotRLDOpkhcEG1NayArPl66Dk5a1tReAjGZePFUmnXO2bi53snlOJ6OIQ5s= madhukerreddybadala@Madhukar-Reddys-MacBook-Pro.local' | sudo tee /home/madhu/.ssh/authorized_keys"
+            ]
+        },
+        {
+            "type": "shell",
+            "inline": [
+                "sudo apt update -y",
+                "sudo apt install -y unzip, net-tools",
+                "curl https://get.docker.com | bash"
+            ]
+        }
+    ]
+}
