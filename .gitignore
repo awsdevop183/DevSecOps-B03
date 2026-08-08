@@ -12,4 +12,5 @@ Workspaces/terraform.tfstate*
 
 Ansible-infra/.terraform*
 Ansible-infra/terraform.tfstate*
-Ansible/inventory.ini
+Ansible/inventory*
+Ansible/ansible.pem

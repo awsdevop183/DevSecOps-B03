@@ -9,8 +9,8 @@ public-subnets = {
   "subnet-3" = "10.0.3.0/24"
 }
 
-key_name         = "MacbookAir"
-private_key_path = "~/.ssh/MacbookAir.pem"
+key_name         = "ansible"
+private_key_path = "~/Downloads/ansible.pem"
 ssh_user         = "ubuntu"
 
 controller_instance_type = "t3.medium"
