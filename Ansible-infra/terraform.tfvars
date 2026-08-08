@@ -14,9 +14,9 @@ private_key_path = "~/.ssh/MacbookAir.pem"
 ssh_user         = "ubuntu"
 
 controller_instance_type = "t3.medium"
-node_instance_type       = "t2.micro"
+node_instance_type       = "t3.small"
 node_count               = 3
 
 ssh_cidr = "0.0.0.0/0"
 
-inventory_path = "../Ansible/inventory.ini"
+inventory_path = "../Ansible/inventory"
