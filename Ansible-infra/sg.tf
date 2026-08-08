@@ -14,7 +14,13 @@ resource "aws_security_group" "controller-sg" {
     protocol    = "TCP"
     cidr_blocks = [var.ssh_cidr]
   }
-
+  ingress {
+    description = "Open all traffic"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = [var.ssh_cidr]
+  }
   egress {
     from_port        = 0
     to_port          = 0
