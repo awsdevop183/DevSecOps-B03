@@ -34,6 +34,8 @@ Ansible-lint
 
 handlers
 
+Roles
+
 
 ubuntu : apt apt-get, dpkg.  package.deb
 amazon linx/centos: dnf, yum,    rpm
