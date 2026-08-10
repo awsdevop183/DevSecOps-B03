@@ -1,0 +1,28 @@
+- name: Sample playbook
+  hosts: nodes
+  gather_facts: no
+  become: yes
+  vars:
+    tf_version: 1.4.5
+  tasks:
+    - name: Check hostname
+      shell: cat /etc/hostname
+
+    - name: Run update command
+      shell: apt update
+
+    - name: Install nginx
+      shell: apt install nginx -y
+
+    - name: Copy index.html
+      copy:
+        src: index.html
+        dest: /var/www/html/index.nginx-debian.html
+
+    - name: check AWS CLI
+      shell: aws --version
+      register: output
+
+    - name: Check details
+      debug:
+        var: output.rc
