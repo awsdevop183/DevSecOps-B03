@@ -49,3 +49,7 @@ variable "ssh_cidr" {
 variable "inventory_path" {
 
 }
+
+variable "controller_key" {
+
+}

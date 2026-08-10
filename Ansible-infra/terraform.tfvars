@@ -10,6 +10,7 @@ public-subnets = {
 }
 
 key_name         = "ansible"
+controller_key   = "MacbookAir"
 private_key_path = "ansible.pem"
 ssh_user         = "ubuntu"
 

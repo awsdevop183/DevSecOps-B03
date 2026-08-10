@@ -21,7 +21,7 @@ locals {
 resource "aws_instance" "controller" {
   ami                         = data.aws_ami.ubuntu.id
   instance_type               = var.controller_instance_type
-  key_name                    = var.key_name
+  key_name                    = var.controller_key
   subnet_id                   = aws_subnet.public-subnets[local.subnet_keys[0]].id
   vpc_security_group_ids      = [aws_security_group.controller-sg.id]
   associate_public_ip_address = true
