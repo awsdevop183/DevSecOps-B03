@@ -1,0 +1,37 @@
+# - name: Install tools
+#   hosts: nodes:!centos
+#   become: yes
+#   gather_facts: yes
+
+#   tasks:
+#     - name: Install tools
+#       apt:
+#         name: "{{ item }}"
+#         state: present
+#       with_items:
+#         - jq
+#         - unzip
+#         - net-tools
+
+- name: Install tools
+  hosts: nodes:!centos
+  become: yes
+  gather_facts: yes
+  vars:
+    tools:
+      - jq
+      - unzip
+      - net-tools
+  tasks:
+    - name: Install tools
+      apt:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - "{{tools}}"
+
+
+
+
+
+

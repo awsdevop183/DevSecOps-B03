@@ -1,5 +1,5 @@
 - name: Sample playbook
-  hosts: nodes
+  hosts: all
   gather_facts: no
   become: yes
   vars:
@@ -11,18 +11,39 @@
     - name: Run update command
       shell: apt update
 
-    - name: Install nginx
-      shell: apt install nginx -y
 
-    - name: Copy index.html
-      copy:
-        src: index.html
-        dest: /var/www/html/index.nginx-debian.html
 
-    - name: check AWS CLI
-      shell: aws --version
-      register: output
 
-    - name: Check details
-      debug:
-        var: output.rc
+
+
+
+
+
+
+    # - name: Install nginx
+    #   shell: apt install nginx -y
+
+    # - name: Copy index.html
+    #   copy:
+    #     src: index.html
+    #     dest: /var/www/html/index.nginx-debian.html
+
+
+
+
+
+
+
+
+
+
+
+
+
+    # - name: check AWS CLI
+    #   shell: aws --version
+    #   register: output
+
+    # - name: Check details
+    #   debug:
+    #     var: output.rc

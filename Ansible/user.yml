@@ -1,0 +1,13 @@
+- name: Add users in linux
+  hosts: nodes:!centos
+  become: yes
+  gather_facts: yes
+  tasks:
+    - name: Now adding user {{ item }}
+      user:
+        name: "{{ item }}"
+
+      with_items:
+        - srikanth
+        - prasad
+        - madhu

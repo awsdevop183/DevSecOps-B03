@@ -19,3 +19,22 @@ ansible default cfg files
 become = Run with root privileges
 
 gather_facts = true
+
+
+gather_facts
+ansbible-config list
+variables
+loops
+conditionals - when
+
+register
+Ansible-lint
+
+
+
+handlers
+
+
+ubuntu : apt apt-get, dpkg.  package.deb
+amazon linx/centos: dnf, yum,    rpm
+

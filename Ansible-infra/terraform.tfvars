@@ -10,7 +10,7 @@ public-subnets = {
 }
 
 key_name         = "ansible"
-private_key_path = "~/Downloads/ansible.pem"
+private_key_path = "ansible.pem"
 ssh_user         = "ubuntu"
 
 controller_instance_type = "t3.medium"
