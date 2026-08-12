@@ -27,14 +27,33 @@ variables
 loops
 conditionals - when
 
-register
+
 Ansible-lint
 
 
+register
+lineinflile
+handlers - notify
+command vs shell
 
-handlers
 
-Roles
+
+
+
+
+
+
+
+
+
+
+
+
+Error handling:
+  failed_when
+  changed_when
+  ignore_errors
+  block, rescue, always
 
 
 ubuntu : apt apt-get, dpkg.  package.deb

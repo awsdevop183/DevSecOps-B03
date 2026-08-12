@@ -37,6 +37,8 @@ resource "aws_instance" "controller" {
               apt-get install -y software-properties-common
               add-apt-repository --yes --update ppa:ansible/ansible
               apt-get install -y ansible
+              cd /home/ubuntu/
+              git clone https://github.com/awsdevop183/DevSecOps-B03.git
               EOF
 
   tags = {
