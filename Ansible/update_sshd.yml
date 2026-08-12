@@ -1,0 +1,28 @@
+- name: Enable Password authentication
+  hosts: nodes
+  become: yes
+  gather_facts: yes
+  tasks:
+    - name: update sshd config file
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: "#PasswordAuthentication yes"
+        line: "PasswordAuthentication yes"
+      # notify: Restart SSH
+
+    - name: update KbdInteractiveAuthentication no
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: "KbdInteractiveAuthentication no"
+        line: "KbdInteractiveAuthentication yes"
+
+    - name: restart ssh
+      service:
+        name: ssh
+        state: restarted
+
+  handlers:
+    - name: Restart SSH # This name must EXACTLY match the notify string
+      service:
+        name: ssh
+        state: restarted

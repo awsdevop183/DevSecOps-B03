@@ -31,14 +31,17 @@ conditionals - when
 Ansible-lint
 
 
+
 register
-lineinflile
+lineinflile 
 handlers - notify
 command vs shell
+Service
+ignore_errors: yes
 
 
 
-
+/etc/ssh/sshd_config
 
 
 

@@ -1,0 +1,15 @@
+- name: Command vs Shell
+  hosts: node-1
+  become: yes
+  gather_facts: yes
+  tasks:
+    # - name: test shell
+    #   shell: env && ls -l
+
+    - name: test shell
+      shell: cd /tmp && ./test.sh
+
+
+
+    # - name: test Command
+    #   command: apt install unzip -y

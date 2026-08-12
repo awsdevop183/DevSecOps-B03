@@ -1,0 +1,17 @@
+- name: Add users in linux
+  hosts: nodes
+  become: yes
+  gather_facts: yes
+  tasks:
+    - name: check aws cli tool
+      shell: unzip
+      register: result
+      ignore_errors: yes
+
+    # - name: Check AWS cli status
+    #   debug:
+    #     var: result
+
+    - name: Install AWS CLI
+      shell: apt install unzip -y
+      when: result != 0
