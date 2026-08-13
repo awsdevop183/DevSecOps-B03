@@ -21,3 +21,4 @@ node_count               = 3
 ssh_cidr = "0.0.0.0/0"
 
 inventory_path = "../Ansible/inventory"
+ami            = "ami-0b6d9d3d33ba97d99"

@@ -19,7 +19,8 @@ locals {
 }
 
 resource "aws_instance" "controller" {
-  ami                         = data.aws_ami.ubuntu.id
+  # ami                         = data.aws_ami.ubuntu.id
+  ami                         = var.ami
   instance_type               = var.controller_instance_type
   key_name                    = var.controller_key
   subnet_id                   = aws_subnet.public-subnets[local.subnet_keys[0]].id
@@ -49,8 +50,9 @@ resource "aws_instance" "controller" {
 }
 
 resource "aws_instance" "node" {
-  count                       = var.node_count
-  ami                         = data.aws_ami.ubuntu.id
+  count = var.node_count
+  # ami                         = data.aws_ami.ubuntu.id
+  ami                         = var.ami
   instance_type               = var.node_instance_type
   key_name                    = var.key_name
   subnet_id                   = aws_subnet.public-subnets[local.subnet_keys[count.index % length(local.subnet_keys)]].id

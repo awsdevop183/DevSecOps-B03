@@ -53,3 +53,7 @@ variable "inventory_path" {
 variable "controller_key" {
 
 }
+
+variable "ami" {
+
+}
