@@ -58,7 +58,7 @@ resource "aws_instance" "node" {
   associate_public_ip_address = true
 
   tags = {
-    Name = "${var.vpc-name}-node-${count.index + 1}"
+    Name = "node-${count.index + 1}"
     Role = "node"
   }
 
