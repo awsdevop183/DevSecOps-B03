@@ -9,15 +9,25 @@ locals {
       private_ip = aws_instance.controller.private_ip
     }
 
-    nodes = [
-      for vm in aws_instance.node : {
-        name       = vm.tags["Name"]
-        public_ip  = vm.public_ip
-        private_ip = vm.private_ip
-      }
-    ]
+    nodes = concat(
+      [
+        {
+          name       = aws_instance.amazon-linux.tags["Name"]
+          public_ip  = aws_instance.amazon-linux.public_ip
+          private_ip = aws_instance.amazon-linux.private_ip
+        }
+      ],
+      [
+        for vm in aws_instance.node : {
+          name       = vm.tags["Name"]
+          public_ip  = vm.public_ip
+          private_ip = vm.private_ip
+        }
+      ]
+    )
   })
 }
+
 
 resource "local_file" "inventory" {
   content         = local.inventory_content

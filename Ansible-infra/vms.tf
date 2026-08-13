@@ -33,14 +33,22 @@ resource "aws_instance" "controller" {
   }
 
   user_data = <<-EOF
-              #!/bin/bash
-              apt-get update -y
-              apt-get install -y software-properties-common
-              add-apt-repository --yes --update ppa:ansible/ansible
-              apt-get install -y ansible
-              cd /home/ubuntu/
-              git clone https://github.com/awsdevop183/DevSecOps-B03.git
-              EOF
+#!/bin/bash
+set -e
+apt-get update -y
+apt-get install -y software-properties-common git
+add-apt-repository --yes --update ppa:ansible/ansible
+apt-get install -y ansible
+cd /home/ubuntu
+git clone https://github.com/awsdevop183/DevSecOps-B03.git
+cat > /home/ubuntu/DevSecOps-B03/Ansible/ansible.pem <<'KEY'
+${file("${path.module}/../Ansible/ansible.pem")}
+KEY
+
+chmod 600 /home/ubuntu/DevSecOps-B03/Ansible/ansible.pem
+chown ubuntu:ubuntu /home/ubuntu/DevSecOps-B03/Ansible/ansible.pem
+
+EOF
 
   tags = {
     Name = "${var.vpc-name}-controller"
@@ -61,6 +69,21 @@ resource "aws_instance" "node" {
 
   tags = {
     Name = "node-${count.index + 1}"
+    Role = "node"
+  }
+
+}
+
+resource "aws_instance" "amazon-linux" {
+  ami                         = var.amzon-linux-ami
+  instance_type               = var.node_instance_type
+  key_name                    = var.key_name
+  subnet_id                   = aws_subnet.public-subnets["subnet-1"].id
+  vpc_security_group_ids      = [aws_security_group.node-sg.id]
+  associate_public_ip_address = true
+
+  tags = {
+    Name = "centos"
     Role = "node"
   }
 

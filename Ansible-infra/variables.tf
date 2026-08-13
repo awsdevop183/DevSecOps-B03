@@ -57,3 +57,7 @@ variable "controller_key" {
 variable "ami" {
 
 }
+
+variable "amzon-linux-ami" {
+
+}
