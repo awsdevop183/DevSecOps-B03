@@ -61,3 +61,7 @@ variable "ami" {
 variable "amzon-linux-ami" {
 
 }
+
+variable "centos-user" {
+
+}

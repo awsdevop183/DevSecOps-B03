@@ -40,6 +40,42 @@ Service
 ignore_errors: yes
 
 
+tags usage
+ansible-vault
+
+block: 
+rescue: if any reason block fails, it's gonna run rescue module
+
+always: it runs awalys
+
+
+
+
+
+
+
+
+ansible-vault:
+
+ansible-vault encrypt aws_creds
+ansible-vault decrypt aws_creds
+ansible-vault create aws_creds
+ansible-vault encrypt_string 'Password' --name 'user_password'
+
+
+ansible-vault
+
+
+
+ansible-playbook
+ansible
+
+
+
+
+
+ansible-galaxy / roles(= terraform modules)
+
 
 /etc/ssh/sshd_config
 

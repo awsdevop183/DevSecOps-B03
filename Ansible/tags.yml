@@ -1,0 +1,14 @@
+- name: Add users in linux
+  hosts: nodes
+  become: yes
+  gather_facts: yes
+  tasks:
+    - name: list files
+      shell: ls -la
+      tags:
+        - list-files
+
+    - name: check hostname
+      shell: hostname
+      tags:
+        - hostname

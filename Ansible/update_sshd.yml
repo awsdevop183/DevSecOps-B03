@@ -26,3 +26,6 @@
       service:
         name: ssh
         state: restarted
+
+      # Dockerfile (Docker or Podman) Terraform, Git, K8s, Jenkins/Github actions ALB, EC2, app1,app2, app3
+# docker ps | podman ps

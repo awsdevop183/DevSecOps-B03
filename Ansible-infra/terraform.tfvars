@@ -13,6 +13,7 @@ key_name         = "ansible"
 controller_key   = "MacbookAir"
 private_key_path = "ansible.pem"
 ssh_user         = "ubuntu"
+centos-user      = "ec2-user"
 
 controller_instance_type = "t3.medium"
 node_instance_type       = "t3.small"

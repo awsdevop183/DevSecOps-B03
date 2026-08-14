@@ -1,0 +1,51 @@
+#ansible-playbook -i invfile Playbooks/vault_testing.yml -vv --ask-vault-pass
+---
+- name: Run AWS Cli Commands On All Servers
+  hosts: nodes
+  gather_facts: yes
+  become: yes
+  vars:
+    user_password: !vault |
+      $ANSIBLE_VAULT;1.1;AES256
+      64303937313666303563346339363432313838353664633462353231303361366433393466383163
+      6463393235643631336563656439363038653363643832350a366466633031646435313665326536
+      61346235626164306162303334663639326662613661343236316661666366373536386535666635
+      6536383963623437390a366464653437386139376132333533346334316465396563316234356332
+      3137
+
+  tasks:
+    - name: Create .aws folder
+      shell: mkdir -p /root/.aws
+      ignore_errors: yes
+    - name: Copy Encrypted File To /tmp
+      copy:
+        src: ./aws_creds #This Encrypted File Must Be Created Prior To Running The Playbook.
+        dest: /tmp/aws_creds
+        owner: root
+        group: root
+        mode: "0600"
+
+    - name: Copy Encrypted Credentials File To .aws folder
+      copy:
+        src: /tmp/aws_creds #This Encrypted File Must Be Created Prior To Running The Playbook.
+        dest: /root/.aws/credentials
+        remote_src: yes
+        owner: root
+        group: root
+        mode: "0600"
+
+    - name: Check S3 Buckets
+      shell: aws s3 ls | cut -d " " -f 3
+      register: buckets
+
+    - name: Print Bucket Name
+      debug:
+        var: buckets.stdout_lines
+
+    - name: Get VPCS
+      shell: aws ec2 describe-vpcs | jq ".Vpcs[].VpcId" -r
+      register: vpcs
+
+    - name: Print VPC IDs
+      debug:
+        var: vpcs
