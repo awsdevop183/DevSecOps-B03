@@ -31,9 +31,9 @@
         - python3-mysqldb
         - libmysqlclient-dev
 
-    - name: Copy the index.j2 Template to index destination folder.
+    - name: Copy the mysql_conf.j2 Template to index destination folder.
       template: >
-        src=/root/ansiblecode/Playbooks/4.Jinja/mysql_conf.j2
+        src=./mysql_conf.j2
         dest=/etc/mysql/mysql.conf.d/mysqld.cnf
         owner=root
         group=root
@@ -50,3 +50,4 @@
         login_user=root
       tags:
         - mysql
+
