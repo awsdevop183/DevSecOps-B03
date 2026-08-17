@@ -15,3 +15,6 @@ Ansible-infra/terraform.tfstate*
 Ansible/inventory*
 Ansible/ansible.pem
 .env*
+Ansible-ASG/ansible.pem
+Ansible-ASG/terraform.tfstate*
+Ansible-ASG/.terraform*

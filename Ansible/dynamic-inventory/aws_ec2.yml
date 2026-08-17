@@ -1,0 +1,29 @@
+plugin: amazon.aws.aws_ec2
+regions:
+  - us-east-1
+
+keyed_groups:
+  - prefix: tag
+    key: tags
+  - prefix: instance_type
+    key: instance_type
+
+  - key: placement.region
+    prefix: aws_region
+
+# find inventory section in ansible.cfg
+
+# [inventory]
+# enable_plugins = aws_ec2
+
+# Install these modules and tools
+
+# python3 -m pip install boto3 botocore
+# ansible-galaxy collection install amazon.aws
+
+# inventory = aws_ec2.yml
+
+# ansible-inventory -i aws_ec2.yml --list | jq
+# ansible-inventory -i aws_ec2.yml --graph
+# ansible -i aws_ec2.yml tag_name -m ping
+

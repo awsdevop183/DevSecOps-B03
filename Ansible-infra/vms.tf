@@ -40,7 +40,7 @@ apt-get install -y software-properties-common git
 add-apt-repository --yes --update ppa:ansible/ansible
 apt-get install -y ansible
 cd /home/ubuntu
-git clone https://github.com/awsdevop183/DevSecOps-B03.git
+git clone -b ansible https://github.com/awsdevop183/DevSecOps-B03.git
 cat > /home/ubuntu/DevSecOps-B03/Ansible/ansible.pem <<'KEY'
 ${file("${path.module}/../Ansible/ansible.pem")}
 KEY
