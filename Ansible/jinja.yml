@@ -3,9 +3,10 @@
   become: yes
   gather_facts: yes
   vars:
+    # host_os: "{{ ansible_facts['os_family'] }}"
+    # user: { { ansible_user_id } }
     host_os: "{{ ansible_facts['os_family'] }}"
     user: "{{ ansible_user_id }}"
-
   tasks:
     - name: Install nginx
       shell: apt update && apt install nginx -y

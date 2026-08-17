@@ -1,0 +1,25 @@
+- name: Add users in linux
+  hosts: nodes
+  become: yes
+  gather_facts: yes
+  tasks:
+    - name: install nginx
+      shell: apt update && apt install nginx -y
+
+
+
+- name: configure index.html with roles
+  hosts: nodes
+  become: yes
+  gather_facts: yes
+  roles:
+    - nginx-install
+
+
+- name: configure k3s
+  hosts: nodes
+  become: yes
+  gather_facts: yes
+  roles:
+    - enmanuelmoreira.k3s 
+  
