@@ -67,11 +67,20 @@ ansible-vault
 
 
 
+
+
+
+Jinja2 templating
+
 ansible-playbook
 ansible
 
 
 
+
+
+Redis - in memory db (RAM)
+MySQL - disk storage
 
 
 ansible-galaxy / roles(= terraform modules)
@@ -98,3 +107,14 @@ Error handling:
 ubuntu : apt apt-get, dpkg.  package.deb
 amazon linx/centos: dnf, yum,    rpm
 
+
+
+
+
+Ansible roles == Terraform modules
+
+
+To initialize role
+
+ansible-galaxy init nginx-install --offline
+ansible-galazy install role_name

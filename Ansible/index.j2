@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DevSecOps-B03</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #0f172a, #2563eb);
+      color: white;
+    }
+
+    .welcome {
+      text-align: center;
+      padding: 50px;
+    }
+
+    h1 {
+      font-size: clamp(2.5rem, 7vw, 5rem);
+      font-weight: 700;
+      letter-spacing: -2px;
+    }
+
+    p {
+      margin-top: 15px;
+      font-size: 1.2rem;
+      color: #dbeafe;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="welcome">
+    <h1>Welcome to DevSecOps-B03</h1>
+    <p>Build. Secure. Deploy. 🚀</p>
+    <h3> Running on {{ host_os }} </h3>
+    <h3> Running as User:  {{ user }} </h3>
+  </main>
+</body>
+</html>

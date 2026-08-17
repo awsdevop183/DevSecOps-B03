@@ -10,13 +10,13 @@ locals {
     }
 
     nodes = concat(
-      [
-        {
-          name       = aws_instance.amazon-linux.tags["Name"]
-          public_ip  = aws_instance.amazon-linux.public_ip
-          private_ip = aws_instance.amazon-linux.private_ip
-        }
-      ],
+      # [
+      #   {
+      #     name       = aws_instance.amazon-linux.tags["Name"]
+      #     public_ip  = aws_instance.amazon-linux.public_ip
+      #     private_ip = aws_instance.amazon-linux.private_ip
+      #   }
+      # ],
       [
         for vm in aws_instance.node : {
           name       = vm.tags["Name"]
