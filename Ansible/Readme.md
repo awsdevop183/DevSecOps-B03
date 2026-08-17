@@ -79,7 +79,8 @@ ansible
 
 
 
-
+Redis - in memory db (RAM)
+MySQL - disk storage
 
 
 ansible-galaxy / roles(= terraform modules)

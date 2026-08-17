@@ -50,4 +50,5 @@
         login_user=root
       tags:
         - mysql
-
+  pre_tasks:
+   - name: 

@@ -1,0 +1,14 @@
+---
+- name: Install MySQL Database
+  hosts: nodes
+  gather_facts: yes
+  become: yes
+  tasks: 
+    - name: test
+      shell: hostname
+
+  pre_tasks:
+    - name: checking pre tasks
+      apt:
+        name: jq
+        state: present
