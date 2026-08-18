@@ -11,6 +11,8 @@ keyed_groups:
   - key: placement.region
     prefix: aws_region
 
+
+
 # find inventory section in ansible.cfg
 
 # [inventory]
