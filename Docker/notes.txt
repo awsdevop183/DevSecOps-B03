@@ -1,0 +1,11 @@
+Vitual Machines vs Containers - Kernel,HyperVisors
+Docker architecture
+Installing Docker
+Namespaces and Cgroups
+Docker commands:
+    - docker run 
+    - docker ps and docker ps -and
+    - docker network ls
+    - docker stop && docker start && docker pause && docker resume
+
+
