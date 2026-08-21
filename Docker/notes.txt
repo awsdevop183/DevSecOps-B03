@@ -29,6 +29,30 @@ volume mount vs volume bind mounts
 
 docker system prune
 
+Dockerfile instructions
+
+Dockerfile 
+
+FROM
+ADD
+USER
+ENV
+ARG
+COPY
+RUN
+WORKDIR
+USER
+EXPOSE
+LABEL
+CMD
+ENTRYPOINT
+
+
+docker build -t image_name .
+docker run --rm 
+Dangling images
+docker inspect
+docker image inspect
 
 
 
