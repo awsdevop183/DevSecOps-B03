@@ -22,4 +22,13 @@ Docker commands:
 
 
 
-docker volume mount to data volume
+changing Docker data location
+
+docker volume
+volume mount vs volume bind mounts
+
+docker system prune
+
+
+
+
