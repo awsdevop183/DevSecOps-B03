@@ -1,0 +1,17 @@
+FROM node
+
+
+RUN useradd appuser
+
+USER appuser
+
+WORKDIR /app
+
+COPY . .
+
+
+EXPOSE 3000
+
+RUN npm install
+
+CMD ["node", "server.js"]

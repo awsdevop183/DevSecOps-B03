@@ -54,5 +54,22 @@ Dangling images
 docker inspect
 docker image inspect
 
+Multi-stage Dockerfile
+alpine images
 
+docker update --restart=always node
+
+distroless images
+Dockerfile best practices
+
+multi stage dockerfile
+docker-compose
+docker compose up -d --build
+docker compose down
+
+Defence in Depth
+
+
+
+run as USER
 
