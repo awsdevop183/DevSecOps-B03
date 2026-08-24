@@ -69,7 +69,58 @@ docker compose down
 
 Defence in Depth
 
-
-
 run as USER
 
+ADD
+.dockerignore
+docker login & registry
+
+docker push imagname ( image name must be username/node:v1)
+
+Docker secrets && Docker config 
+
+
+Quorum
+Doker swarm cluster 
+
+
+Docker swarm - Kubernetes K8s
+
+
+2 = (2-1)2 1/2 = 0.5
+Master nodes
+3 - (n-1/2) = 3-1/2 =1  (1-1)/2 
+5 (5-1)/2 = 4/2 = 2
+7
+9
+11
+
+
+Leader - 1
+Sub ordinates - 2
+
+Master node/ Control plane
+
+Orchestration - Managing containers
+
+Node Exporter - 
+
+--mode global
+
+DaemonSet = 
+
+Doker swarm cluster 
+docker swarm init
+
+docker swarm join --token SWMTKN-1-0pm7trrj1drbdvt6vj24xxxlw187ylvemrpk5nudlavq8opnz2-e9sj0zka26wi07ga75gkq5y9s 172.31.12.188:2377
+
+docker swarm join-token manager - to add a manager
+
+docker service create --name nginx -p 90:80 --replicas 4 nginx
+docker service create --name node_exp -p 9100:9100 --mode global prom/node-exporter
+docker service rm node_exp
+
+Contraints
+
+
+docker service create --name test --constraint=node.role==worker -p 91:80 --replicas=5 nginx
