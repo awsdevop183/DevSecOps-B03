@@ -1,0 +1,28 @@
+Observability
+
+- Data dog
+- New relic - 
+- Prometheus 
+- Grafana
+- Node Exporter
+- Loki
+
+- Install and set up node exporter on every node
+-
+
+Node_exporter port: 9100
+Prometheus port: 9090
+Granfana port: 3000
+
+
+Prometheus queries:
+
+up{job="all"}
+
+up{job="node-1"} or up{job="node-2"} or up{job="node-3"}
+
+node_filesystem_free_bytes{job="node-1"}
+
+node_filesystem_free_bytes{job="node-1", mountpoint="/"}
+
+node_filesystem_free_bytes{job="node-1", mountpoint="/"} /1024 /1024 /1024
