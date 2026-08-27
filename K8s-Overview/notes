@@ -1,0 +1,50 @@
+export KOPS_STATE_STORE=s3://bunnyops-kops
+
+
+
+
+
+
+kops create cluster k8s.aws365.shop \
+  --state=s3://bunnyops-kops \
+  --cloud=aws \
+  --zones=us-east-1a \
+  --control-plane-count=1 \
+  --control-plane-zones=us-east-1a \
+  --control-plane-size=t3.medium \
+  --node-count=2 \
+  --node-size=t3.medium \
+  --dns-zone=aws365.shop \
+  --networking=calico \
+  --topology=public \
+  --api-loadbalancer-type=public
+
+
+Imperative way - Ansible adhoc commands
+Declarative  - yaml (Manifest files)
+
+
+
+statefulsets
+
+--mode global, = DaemonSets 
+
+
+Pods
+Deployments
+Services - NodePort, LoadBalancer, ClusterIP, headless service, external service
+Daemonsets
+statefulsets
+Secrets
+Configmaps
+ingress
+ingress controller
+namespaces
+
+
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+spec:
+
