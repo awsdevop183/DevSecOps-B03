@@ -26,3 +26,11 @@ node_filesystem_free_bytes{job="node-1"}
 node_filesystem_free_bytes{job="node-1", mountpoint="/"}
 
 node_filesystem_free_bytes{job="node-1", mountpoint="/"} /1024 /1024 /1024
+
+
+
+Alerting Mechanism:
+
+ - Email
+ - PagerDuty
+ - Communication channels (Teams,Slack)

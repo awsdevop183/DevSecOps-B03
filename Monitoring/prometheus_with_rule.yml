@@ -1,0 +1,16 @@
+global:
+  scrape_interval: 15s
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets: ["18.232.154.216:9093"]
+rule_files:
+  - alert_rules.yml
+scrape_configs:
+  - job_name: "AppServers"
+    scrape_interval: 5s
+    static_configs:
+      - targets: ["IP:9100", "IP:9100"]
+        labels:
+          env: dev
+          batch: b03

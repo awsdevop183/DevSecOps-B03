@@ -6,23 +6,23 @@ scrape_configs:
     scrape_interval: 5s
     static_configs:
       - targets:
-          - "34.239.135.232:9100"
+          - "18.232.154.216:9100"
   - job_name: "node-2"
     scrape_interval: 5s
     static_configs:
       - targets:
-          - "35.153.158.173:9100"
+          - "54.235.24.88:9100"
 
   - job_name: "node-3"
     scrape_interval: 5s
     static_configs:
       - targets:
-          - "3.93.19.34:9100"
+          - "98.85.253.20:9100"
 
   - job_name: "all"
     scrape_interval: 5s
     static_configs:
       - targets:
-          - "3.93.19.34:9100"
-          - "34.239.135.232:9100"
-          - "35.153.158.173:9100"
+          - "18.232.154.216:9100"
+          - "54.235.24.88:9100"
+          - "98.85.253.20:9100"

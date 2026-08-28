@@ -1,0 +1,35 @@
+sudo useradd --no-create-home --shell /bin/false alertmanager
+wget -O alert.tar.gz https://github.com/prometheus/alertmanager/releases/download/v0.34.0/alertmanager-0.34.0.linux-amd64.tar.gz
+
+tar xvf alert.tar.gz
+sudo mkdir /etc/alertmanager
+sudo mkdir /var/lib/alertmanager
+sudo chown alertmanager:alertmanager /etc/alertmanager
+sudo chown alertmanager:alertmanager /var/lib/alertmanager
+vi /etc/alertmanager/alertmanager.yml
+
+# Then put PD_and_Slack_alertmanager.yml content
+
+#Then create a alertmanager service
+
+vi /etc/systemd/system/alertmanager.service
+####################################################
+
+[Unit]
+Description=Alertmanager
+After=network.target
+
+[Service]
+User=alertmanager
+Restart=always
+Group=alertmanager
+Type=simple
+ExecStart=/usr/local/bin/alertmanager \
+  --config.file=/etc/alertmanager/alertmanager.yml \
+  --storage.path=/var/lib/alertmanager
+
+[Install]
+WantedBy=multi-user.target
+
+
+####################################################
