@@ -1,0 +1,41 @@
+# echo "ARTIFACTORY_DB_PASSWORD=$(openssl rand -base64 24)" | sudo tee .env
+# sudo chmod 600 .env
+# sudo mkdir -p /opt/jfrog/artifactory/var/etc /opt/jfrog/postgres
+# sudo chown -R 1030:1030 /opt/jfrog/artifactory/var
+# sudo docker compose up -d
+
+services:
+  postgres:
+    image: postgres:16
+    container_name: artifactory-db
+    environment:
+      POSTGRES_DB: artifactory
+      POSTGRES_USER: artifactory
+      POSTGRES_PASSWORD: ${ARTIFACTORY_DB_PASSWORD}
+    volumes:
+      - /opt/jfrog/postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U artifactory"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+    restart: unless-stopped
+
+  artifactory:
+    image: releases-docker.jfrog.io/jfrog/artifactory-oss:latest
+    container_name: artifactory
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      JF_SHARED_DATABASE_TYPE: postgresql
+      JF_SHARED_DATABASE_DRIVER: org.postgresql.Driver
+      JF_SHARED_DATABASE_URL: jdbc:postgresql://postgres:5432/artifactory
+      JF_SHARED_DATABASE_USERNAME: artifactory
+      JF_SHARED_DATABASE_PASSWORD: ${ARTIFACTORY_DB_PASSWORD}
+    ports:
+      - "8081:8081"
+      - "8082:8082"
+    volumes:
+      - /opt/jfrog/artifactory/var:/var/opt/jfrog/artifactory
+    restart: unless-stopped

@@ -1,0 +1,38 @@
+Generate sample springboot application
+What is pom.xml
+Install Maven build tool
+
+Bulding Java SpringBoot application using Maven(mvn)
+Maven Lifecycle
+Deploy JFrog Artifactory for build artifacts
+Pushing Artifcats to JFrog
+Install SonarQube (Static code Application Security Testing)
+Scan Java Springboot application using SonarQube
+
+
+
+m8a.2xlarge or 	m8g.4xlarge Instance type is better
+c4.2xlarge
+
+npm install
+mvn clean, mvn package
+
+mvn, Gradle, ANT
+
+
+npm - build tool
+
+pom.xml == package.json
+
+
+
+
+mvn validate - validates using pom.xml file
+mvn compile - it converts Java -> .class -> jar or war
+
+mvn clean - it removes target folder and its content
+mvn package - it validates, compiles and packages it
+mvn deploy - it validates, compiles and packages and deploy artifact (*.jar files ) to remote artifact
+
+
+Source code: https://github.com/awsdevop183/spring-boot-demo.git
