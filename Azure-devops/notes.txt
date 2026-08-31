@@ -1,0 +1,62 @@
+CI/CD
+
+
+
+CI - Continuous Integration
+CD - Continuous delivery - (Dev, Test automatic deployment), Manual depoy to Prod
+CD-  Continuous Deployment - Automatic Deployment to Production
+
+
+Dev - Only Developers can use it - 
+
+
+
+
+
+
+
+Test - Only for Testers - Malformed/Bug - DevOps issue
+
+UAT - User Acceptance Test - MadhuKart- 
+
+Prod - Production ( Live environment)
+
+
+Main/Master/Production
+
+Staging
+Tes
+
+
+Artifact storag: JFrog, Nexus, S3
+
+CI/CD:
+
+
+Azure DevOps 
+Jenkins
+GitHub Actions
+GitLab
+Bamboo
+CircleCI
+
+Starting - Easy
+Maintenance - Hard
+Ending - Easy
+
+
+
+
+terraform EC2 code 
+Docker volume types - Bind volumes, volume. portainer 
+
+- /var/run/docker.sock
+
+K8s - test.aws365.shop(route 53) - Ingress-controller(ALB/NLB) - Ingress -> 
+Service -> Labels (Deployment) -> group of Pods (Application code)
+
+Jekins Libraries - GitHub Actions - 
+
+
+
+Azure Self-hosted Agent setup

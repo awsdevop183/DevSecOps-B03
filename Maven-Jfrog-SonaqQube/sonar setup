@@ -5,3 +5,26 @@ docker run -d \
   -v sonarqube_logs:/opt/sonarqube/logs \
   -v sonarqube_extensions:/opt/sonarqube/extensions \
   sonarqube:lts-community
+
+
+# SAST: Static Application Security Scanning - Sonar-qube
+# DAST: Dynamic Application Security Scanning - Owasp ZAP 10
+
+
+# mvn package
+
+
+wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-8.1.0.6389-linux-x64.zip
+
+mkdir /opt/sonar-scanner
+mv downloaded folder content to /opt/sonar-scanner
+
+
+sudo tee /etc/profile.d/sonar-scanner.sh > /dev/null <<'EOF'
+export SONAR_SCANNER_HOME=/opt/sonar-scanner
+export PATH="$SONAR_SCANNER_HOME/bin:$PATH"
+EOF
+
+source /etc/profile.d/sonar-scanner.sh
+which sonar-scanner
+
