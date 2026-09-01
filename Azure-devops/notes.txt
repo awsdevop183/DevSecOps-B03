@@ -60,3 +60,12 @@ Jekins Libraries - GitHub Actions -
 
 
 Azure Self-hosted Agent setup
+
+terraform
+maven
+aws cli
+docker 
+
+
+figure out AgentSettings
+Issues with PR triggering
