@@ -1,0 +1,295 @@
+trigger:
+  - main
+  - dev
+  - prod
+
+pool:
+  name: LinuxAgent
+  demands:
+    - Java -equals Yes
+    - Terraform -equals Yes
+
+variables:
+  global_version: "1.0.0"
+  global_email: "info@madhukarreddy.com"
+  isDev: $[eq(variables['Build.SourceBranch'], 'refs/heads/dev')]
+  isProd: $[eq(variables['Build.SourceBranch'], 'refs/heads/prod')]
+
+stages:
+  - stage: CheckingTheAgent
+    condition: eq(variables.isDev, true)
+    # pool:
+    #   name: LinuxAgent
+    #   demands:
+    #     - Terraform -equals Yes
+    variables:
+      stage_version: "2.0.0"
+      stage_email: "info@madhukarreddy.com"
+    jobs:
+      - job: CheckTerraform
+        variables:
+          job_version: "3.0.0"
+          job_email: "info@madhukarreddy.com"
+        timeoutInMinutes: "5"
+        steps:
+          - script: echo $(Build.BuildId)
+            displayName: Display The Build-ID"
+
+          - script: terraform version
+            displayName: "Display Terraform Version"
+
+  - stage: ScanWithSonar
+    condition: and(succeeded(), eq(variables.isDev, true))
+    jobs:
+      - job: RunningSASTWithSonarqube
+        timeoutInMinutes: "10"
+        steps:
+          - task: SonarScanner@1
+            inputs:
+              SonarQube: "sonar-token"
+              scannerMode: "Other"
+              projectVersion: "$(Build.BuildId)"
+            displayName: "Preparing SonarQube Config"
+          - task: Maven@4
+            inputs:
+              mavenPomFile: "pom.xml"
+              publishJUnitResults: false
+              javaHomeOption: "JDKVersion"
+              mavenVersionOption: "Default"
+              mavenAuthenticateFeed: false
+              effectivePomSkip: false
+              sonarQubeRunAnalysis: true
+              sqMavenPluginVersionChoice: "latest"
+            displayName: "Running SonarQube Maven Analysis"
+
+  - stage: BuildingJavaCodeWithMaven
+    # pool:
+    #   name: LinuxAgent
+    #   demands:
+    #     - Terraform -equals Yes
+    jobs:
+      - job: BuildingJavaCodeJob
+        timeoutInMinutes: 5
+        steps:
+          - script: ls -al && pwd
+            displayName: "List Files & Current Working Directory"
+
+          - script: mvn versions:set -DnewVersion=Dev-2.0.$(Build.BuildId)
+            displayName: "Set Maven Build Version"
+
+          - script: mvn clean package install && ls -al
+            displayName: "Run the maven build and install"
+          - script: mvn package && ls -al
+            displayName: "Run the maven package"
+            continueOnError: true
+          - script: ls -al && "$(Build.SourcesDirectory)/target/student-manager.jar" "ROOT$(Build.BuildId).jar" && ls -al
+            displayName: "List Files & Rename ROOT.jar"
+          - script: rm -rf /artifacts/*.jar && cp ROOT$(Build.BuildId).jar /artifacts && ls -al /artifacts
+            displayName: "Copy Artifact To Folder"
+          - task: CopyFiles@2
+            inputs:
+              Contents: "ROOT$(Build.BuildId).jar"
+              TargetFolder: "$(Build.ArtifactStagingDirectory)"
+              OverWrite: true
+            displayName: "Copying JAR file to ArtifactStagingDirector"
+          - task: PublishBuildArtifacts@1
+            inputs:
+              PathtoPublish: "$(Build.ArtifactStagingDirectory)"
+              ArtifactName: "ROOT$(Build.BuildId).jar"
+              publishLocation: "Container"
+            displayName: "Publishing JAR Artifact."
+
+  - stage: CopyingArtifactsToAws
+    condition: and(succeeded(), eq(variables.isDev, true))
+    jobs:
+      - job: CopyFilesToAWSS3Bucket
+        timeoutInMinutes: "5"
+        steps:
+          - checkout: none
+          - task: S3Upload@1
+            inputs:
+              awsCredentials: "devops-b03-aws-connection"
+              regionName: "us-east-1"
+              bucketName: "bunnyops"
+              sourceFolder: "/artifacts/"
+              globExpressions: "ROOT$(Build.BuildId).jar"
+            displayName: "AWS Upload artifacts to AWS S3 Bucket"
+            continueOnError: true
+
+  - stage: DockerBuildAndTrivyScan
+    condition: and(succeeded(), eq(variables.isDev, true))
+    jobs:
+      - job: BuildingContainerImageAndSecurityScanning
+        timeoutInMinutes: "10"
+        steps:
+          - checkout: none
+          - script: docker build -t awsdevops193/java-app:$(Build.BuildId) .
+            displayName: "Create Docker Image"
+          - script: |
+              trivy image --exit-code 0 --severity LOW,MEDIUM --format template --template "@template/junit.tpl" -o junit-report-low-med.xml awsdevops183/myapp:$(Build.BuildId)
+              trivy image --exit-code 0 --severity HIGH,CRITICAL --format template --template "@template/junit.tpl" -o junit-report-high-crit.xml awsdevops183/myapp:$(Build.BuildId)
+            displayName: "Scan Image and Create Report"
+          - task: PublishTestResults@2
+            inputs:
+              testResultsFormat: "JUnit"
+              testResultsFiles: "**/junit-report-low-med.xml"
+              mergeTestResults: true
+              failTaskOnFailedTests: false
+              testRunTitle: "Trivy - Low and Medium Vulnerabilities"
+            displayName: "Trivy - Low and Medium Vulnerabilities"
+            condition: "always()"
+          - task: PublishTestResults@2
+            inputs:
+              testResultsFormat: "JUnit"
+              testResultsFiles: "**/junit-report-high-crit.xml"
+              mergeTestResults: true
+              failTaskOnFailedTests: false
+              testRunTitle: "Trivy - High and Critical Vulnerabilities"
+            displayName: "Trivy - High and Critical Vulnerabilities"
+            condition: "always()"
+
+  - stage: BuildDockerImagePushToDockerHub
+    condition: and(succeeded(), eq(variables.isDev, true))
+    jobs:
+      - job: PushToDockerHub
+        timeoutInMinutes: "5"
+        steps:
+          - checkout: none
+          - task: Docker@2
+            inputs:
+              containerRegistry: "dockerhub-connection"
+              command: "login"
+            displayName: "Login To Docker Hub"
+          - task: Bash@3
+            inputs:
+              targetType: "inline"
+              script: |
+                docker tag awsdevops183/devops-b035:$(Build.BuildId) awsdevops183/devops-b03:$(Build.BuildId)
+                docker push awsdevops183/devops-b035:$(Build.BuildId)
+            displayName: "Pushing Docker Image To Docker Hub"
+
+  - stage: "DeployingToStagingEnvironment"
+    dependsOn: BuildingJavaCodeWithMaven
+    condition: and(succeeded(), eq(variables.isDev, true))
+    displayName: "Deploying To AWS Staging Environment"
+    jobs:
+      - deployment: "DeployJARtoStagingServer"
+        environment:
+          name: STAGING
+          resourceType: VirtualMachine
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - script: PROC=$(ps -ef | grep -i jar | grep -v grep | awk {'print$2'}) && echo $PROC && sudo kill -9 $PROC
+                  displayName: "Stop Existing JAR File"
+                  continueOnError: true
+                - script: sudo java -jar /home/ubuntu/azagent/_work/1/ROOT$(Build.BuildId).jar/ROOT$(Build.BuildId).jar &
+                  displayName: "Running The Jar File"
+                  continueOnError: true
+
+  - stage: ValidatingStagingDeploy
+    dependsOn: DeployingToStagingEnvironment
+    pool:
+      name: LinuxAgent
+      demands:
+        - JDK -equals 11
+    jobs:
+      - job: CheckingStagingDeployment
+        variables:
+          port_number: 200
+        timeoutInMinutes: "5"
+        steps:
+          - checkout: none
+          - script: |
+              RESPONSE=$(curl -o /dev/null -s -w "%{http_code}\n" https://staging.aws365.shop)
+              if [ ${RESPONSE} -eq $(port_number) ]
+              then
+              echo "The RESPONSE IS $RESPONSE"
+              echo "DEPLOYMENT TO STAGING IS SUCESSFULL. PROCEED TO PRODUCTION."
+              else
+              echo "The RESPONSE IS $RESPONSE"
+              echo "DEPLOYMENT FAILED IN STAGING"
+              exit 1
+              fi
+            displayName: "Testing Tomcat Deployment"
+
+  - stage: "DeployingToProdEnvironment"
+    displayName: "Deploying To AWS Prod Environment"
+    jobs:
+      - deployment: "DeployJARtoProdServer"
+        environment:
+          name: PROD
+          resourceType: VirtualMachine
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - script: PROC=$(ps -ef | grep -i jar | grep -v grep | awk {'print$2'}) && echo $PROC && sudo kill -9 $PROC
+                  displayName: "Stop Existing JAR File"
+                  continueOnError: true
+                - script: sudo java -jar /home/ubuntu/azagent/_work/1/ROOT$(Build.BuildId).jar/ROOT$(Build.BuildId).jar &
+                  displayName: "Running The Jar File"
+                  continueOnError: true
+
+  - stage: ValidatingProdDeploy
+    jobs:
+      - job: CheckingProductionDeployment
+        variables:
+          port_number: 200
+        timeoutInMinutes: 2
+        steps:
+          - checkout: none
+          - script: |
+              RESPONSE=$(curl -o /dev/null -s -w "%{http_code}\n" https://prod.aws365.shop)
+              if [ ${RESPONSE} -eq $(port_number) ]
+              then
+              echo "The RESPONSE IS $RESPONSE"
+              echo "DEPLOYMENT TO PRODUCTION IS SUCESSFULL."
+              else
+              echo "The RESPONSE IS $RESPONSE"
+              echo "DEPLOYMENT FAILED IN PRODUCTION"
+              exit 1
+              fi
+            displayName: "Testing Tomcat Deployment"
+
+  #Plugin is needed for ZAP Testing. Install Plugin OWASP ZAP Scanner by CSE-DevOps
+  - stage: ZAPOWASPTestingStagingEnvironment
+    dependsOn: ValidatingStagingDeploy
+    condition: and(succeeded(), eq(variables.isDev, true))
+    jobs:
+      - job: ZapTestingStaging
+        timeoutInMinutes: 10
+        steps:
+          - checkout: none
+          - task: owaspzap@1
+            inputs:
+              scantype: "targetedScan"
+              url: "https://staging.aws365.shop"
+              # port: "8080"
+              threshold: "500"
+            displayName: "DAST Staging Environment"
+          - task: PublishTestResults@2
+            displayName: "Publish Test Results For ZAP Testing"
+            inputs:
+              testResultsFormat: "NUnit"
+              testResultsFiles: "converted_report.xml"
+
+  - stage: ZAPOWASPTestingProductionEnvironment
+    jobs:
+      - job: ZapTestingProduction
+        timeoutInMinutes: 10
+        steps:
+          - checkout: none
+          - task: owaspzap@1
+            inputs:
+              scantype: "targetedScan"
+              url: "https://prod.aws365.shop"
+              # port: "8080"
+              threshold: "500"
+            displayName: "DAST Production Environment"
+          - task: PublishTestResults@2
+            displayName: "Publish Test Results For ZAP Testing On Production"
+            inputs:
+              testResultsFormat: "NUnit"
+              testResultsFiles: "converted_report.xml"

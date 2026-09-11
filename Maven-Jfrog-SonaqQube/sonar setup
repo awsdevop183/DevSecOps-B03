@@ -28,3 +28,8 @@ EOF
 source /etc/profile.d/sonar-scanner.sh
 which sonar-scanner
 
+Trivy - 
+Sonarqube
+Owasp ZAP -
+Checkov
+

@@ -1,0 +1,3 @@
+Freestyle job
+Pipeline  - Declarative, Jenkinsfile
+https://jenkins.aws365.shop/github-webhook/
