@@ -1,0 +1,3 @@
+Write a Dockerfile
+How can you reduce Docker image size
+    - 

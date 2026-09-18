@@ -1,3 +1,23 @@
 Freestyle job
 Pipeline  - Declarative, Jenkinsfile
 https://jenkins.aws365.shop/github-webhook/
+
+groovy Shared Libraries
+
+RBAC Access to Jenkins
+
+Handling Credentials
+Plugins for more functionality
+
+
+squ_c7faf94e191eb2dbba9b1c421db611890bc4ba0e
+
+
+Sonar-qube - SAST
+OWASP Dependency check
+trivy
+
+ZAP (DAST)- Test/Staging
+
+
+Log4J
