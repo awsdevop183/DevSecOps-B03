@@ -1,0 +1,63 @@
+Python for DevOps
+
+Why Python?
+ - easy to learn
+ - Popular
+ - Dynamic 
+ - Packages ( Langchain, Pydantic, Matplotlib, Numpy, Pandas)/Libraries
+   os, psutil
+
+
+
+
+- variables
+- data types
+  - integer (10)
+  - float (10.50)
+  - string ("true", "10")
+  - boolean ( True or False)
+  - list ["prod",10, 11.50, True] 
+  - tuple ("prod",10, 1.50, True)
+  - dictionary - {
+    "name":"Madhu", 
+    "age": 32,
+    "role": "DevOps Engineer",
+    "env": ["prod","dev","test"]
+    }
+  - set {0,0,1,2,2,4,4,5,5}
+
+
+- conditionals
+  if, else
+  if, else if (elif), and else
+- loops
+- functions
+- Libraries import
+- APIs
+- AI Agents
+
+
+What's an API?
+
+HTTP Methods
+
+GET - To get something
+POST - sign up / Create a resource
+DELETE- to delete something
+PUT -  to update something
+PATCH 
+
+HTTP Status
+
+
+1XX- 100, informational
+2XX - 200, 201, - OK
+3XX - redirection
+4XX - client side error, 404 not found. 401 - unauthorized, 403 - Forbidden
+5XX - Server side issues
+
+
+
+Create EBS volumes in AWS
+
+if io1 and io2 volumes are unattached, delete them
